@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+{% include "head.html" %}
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<body>
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        <!-- Desktop sidebar -->
+
+        {% include "navbar.html" %}
+
+        <!-- Mobile sidebar -->
+        <!-- Backdrop -->
+        {% include "mobilenav.html" %}
+
+        <div class="py-2">
+
+            <center>
+                <h1 style="font-size: 48px;">What to Invest In?</h1>
+            </center>
+
+            <p class="text-md text-gray-600 dark:text-gray-400 ml-8">
+                Before you look into which investments suits best for you, I would recommend checking out our Investment Calculator <a href="./#survey" style="color: green;">HERE</a>. Come back with an estimated annual return rate, and we'll figure out which investemtns work best.
+            </p>
+            <br>
+                If you are interested in a specific asset class and believe it can fit into your investment strategy, click on the link to learn more.  
+            <br>
+            <p class="text-md text-gray-600 dark:text-gray-400 ml-8">
+                <b>Safe Investments (Annual return rate of less than 3%):</b>
+                <br>
+                <a href="https://www.investopedia.com/terms/s/savingsaccount.asp" target="_blank" style="color: green; text-decoration: underline;"> -Savings Account</a>
+                 Put your money in a bank account and earn a little extra over time, not risky but most likely won't even beat inflation rates.
+                 <br>
+                 <a href="https://www.investopedia.com/terms/c/certificateofdeposit.asp" target="_blank" style="color: green; text-decoration: underline;"> -Certificates of Deposit (CDs)</a> Lock your money away for a certain period and earn interest also not risky but limited rewards. 
+                    <br> 
+               <b> Steady Investments (Annual reutrn rate of around 3-10%):</b>
+               <br>
+
+               <a href="https://www.investopedia.com/terms/b/bond.asp" target="_blank" style="color: green; text-decoration: underline;"> - Bonds:</a> Lend your money to governments or companies and earn interest over time. On the safer side of investments, although difficult to find places to invest in bonds.
+               <br>
+               <a href="https://www.investopedia.com/terms/i/indexfund.asp" target="_blank" style="color: green; text-decoration: underline;"> - Index Funds:</a>&#9733; Invest in a mix of stocks to spread out your risk and potentially earn more. Very easy to find and manage, gives steady returns but depeneds heavily with the market.
+               <br>
+               <a href="https://www.investopedia.com/terms/m/mutualfund.asp" target="_blank" style="color: green; text-decoration: underline;"> - Mutual Funds:</a>&#9733;  Pool your money with others to invest in different things and let a professional manage it. Good if you have a defined goal but usually for long term investments. 
+                    <br>
+                <b>Risky Investments (Annual return rate of more than 10%):</b>
+                <br>
+                <a href="https://www.investopedia.com/terms/s/stock.asp" target="_blank" style="color: green; text-decoration: underline;"> - Stocks:</a>&#9733;  Buy shares of companies and have the potential to make a lot of money, but also risk losing it. Lots of freedom to research and pick stocks that fit your needs. Returns and risk vary heavily depending. 
+                <br>
+                <a href="https://www.investopedia.com/terms/r/realestate.asp" target="_blank" style="color: green; text-decoration: underline;"> - Real Estate:</a>  Invest in properties like houses or buildings, which can provide rental income or increase in value over time. Difficult for younger investors to get into, something to look for in the future. 
+                <br>
+                <a href="https://www.investopedia.com/terms/c/commodity.asp" target="_blank" style="color: green; text-decoration: underline;"> - Commodities:</a>  Invest in things like gold, oil, or crops, which can be affected by changes in supply and demand. Fairly difficult to manage and run if you are a beginner.
+                <br>
+                <a href="https://www.investopedia.com/options-basics-tutorial-4583012" target="_blank" style="color: green; text-decoration: underline;"> - Options and Derivatives:</a>  Make bets on whether the prices of stocks or other investments will go up or down. Very risky and forces you to learn and research a lot about the markets but great returns. 
+                <br>
+                Remember, every investment comes with some level of risk. It's important to do research, understand the potential gains and losses, and consider your own goals and comfort with risk before making any investment decisions.                    
+            </p>
+            <div style="position: fixed; bottom: 0; right: 0; margin: 20px;">&#9733; = Investments I would recommend for beginners</div>
+
+            <div style="display: flex; align-items: center; justify-content: center; margin: 20px;">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/qbCIRGo-NUM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+
+        </div>
+<br>
+
+<a href="./lesson2.html" style="position: fixed; bottom: 10px; left: 270px; color: rgb(0, 133, 69);">Previous Lesson &#8592;</a>
+<a href="./lesson4.html" style="position: fixed; bottom: 10px; right: 10px; color: rgb(0, 133, 69);">Next Lesson &#8594;</a>
+

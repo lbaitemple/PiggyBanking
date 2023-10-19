@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+{% include "head.html" %}
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<body>
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        <!-- Desktop sidebar -->
+
+        {% include "navbar.html" %}
+
+        <!-- Mobile sidebar -->
+        <!-- Backdrop -->
+        {% include "mobilenav.html" %}
+
+            <main class="h-full overflow-y-auto">
+                <div class="container px-6 mx-auto grid">
+
+                    <h2 style="font-size: 2.6rem;"
+                        class="mt-6 font-bold text-gray-700 text-left dark:text-gray-200 ml-8">
+                        About
+                    </h2>
+                    <div class="py-2">
+                        <p class="text-md text-gray-600 dark:text-gray-400 ml-8 dark:text-gray-200">
+                        <b>Piggy Bank aims to provide financial education to the youth through interactive models and lessons. </b>
+
+                        Piggy Banking was formed in early 2023, after the catasrophic event of Covid-19 that plummeted economies around the world and the immense rebound shortly after the summer of 2020. These huge shifts in the market created a new generation that had seen investing in a completely new way than any other generation in the past. And now that the markets have slowly resided and are growing at normal speeds, the way we view investing is extremely important. Therefore, Piggy Banking is designed for the young generation and teaches them the importance of investing at times like these which will be life long lessons. 
+                        </p>
+                    </div>
+
+                    <h2 style="font-size: 2rem;"
+                        class="mt-6 font-semibold text-gray-700 text-left dark:text-gray-200 ml-8">
+                        Our Sources
+                    </h2>
+                    <div class="py-2">
+                        <p class="text-md text-gray-600 dark:text-gray-400 ml-8">
+                            This website was generated much by ChatGPT in terms of basic coding and information provided in the overview. The website took inspiration from Investopedia and Calculator.net.
+                        </p>
+                    </div>
+
+                <h2 style="font-size: 2rem;"
+                    class="mt-6 font-semibold text-gray-700 text-left dark:text-gray-200 ml-8">
+                    The design
+                </h2>
+                <div class="py-2">
+                    <p class="text-md text-gray-600 dark:text-gray-400 ml-8">
+                        This website was built with HTML, CSS/Bootstrap, Javascript, and Python. This website was made and run by Christopher Bai. 
+                    </p>
+                </div>
+
+                {% include "footer.html" %}
+                </div>
+
+        </div>
+
+
+</body>
+
+</html>

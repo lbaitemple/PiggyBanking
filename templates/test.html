@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Return Rate Calculator</title>
+    <style>
+        .graybg1 {
+            background-color: #F0F0F0;
+        }
+
+        .font11 {
+            font-size: 11px;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        var chart;
+
+        function calculate() {
+            var targetAmount = parseFloat(document.getElementById("targetAmount").value);
+            var startAmount = parseFloat(document.getElementById("startAmount").value);
+            var years = parseInt(document.getElementById("years").value);
+            var additionalContribution = parseFloat(document.getElementById("additionalContribution").value);
+            var contributionFrequency = document.getElementById("contributionFrequency").value;
+            var contributionTiming = document.getElementById("contributionTiming").value;
+
+            var ret = calculateReturnRate(targetAmount, startAmount, years, additionalContribution, contributionFrequency, contributionTiming);
+            var returnRate =ret[0];
+            if (isNaN(returnRate)) {
+                var message = "Unable to find a solution. Please adjust the initial start amount or number of years.";
+                document.getElementById("returnRate").innerHTML = "<span style='color: red;'>" + message + "</span>";
+            } else {
+                document.getElementById("returnRate").innerHTML = "You will need a " + "<span style='color: green;'>" + returnRate.toFixed(2) + "% </span>" + "to reach your goal of " + "<span style='color: green;'>" + targetAmount + "$.</span>" + "<br> At the end of " + years + " years, assuming the annual growth rate stays consistent, your investment will grow by " + "<span style='color: green;'>" + ret[1] + " dollars! </span>";
+            }
+
+            generateChart(startAmount, returnRate, years, additionalContribution, contributionFrequency, contributionTiming);
+        }
+
+        function calculateReturnRate(targetAmount, startAmount, years, additionalContribution, contributionFrequency, contributionTiming) {
+            var guess = 0.1; // Initial guess for return rate
+            var maxIterations = 1000000;
+            var tolerance = 0.00001;
+            var lowerBound = 0.0;
+            var upperBound = 100.0;
+
+            for (var i = 0; i < maxIterations; i++) {
+                var endBalance = calculateEndBalance(startAmount, guess, years, additionalContribution, contributionFrequency, contributionTiming);
+                var difference = targetAmount - endBalance[0];
+               // console.log(targetAmount+ " :  " + endBalance);
+
+                if (Math.abs(difference) <= tolerance) {
+                    console.log(endBalance[1], guess * 100);
+                    return [guess * 100, Number.parseInt(endBalance[1])] ;
+                }
+
+                if (difference > 0) {
+                    lowerBound = guess;
+                    guess = (guess + upperBound) / 2;
+                } else {
+                    upperBound = guess;
+                    guess = (guess + lowerBound) / 2;
+                }
+            }
+
+            return [NaN, 0]; // Unable to find a solution within the maximum number of iterations
+        }
+
+
+        function calculateEndBalance(startAmount, returnRate, years, additionalContribution, contributionFrequency, contributionTiming) {
+            var totalContributions = getPeriodsPerYear(contributionFrequency) * years * additionalContribution;
+            var totalPeriods = years * getPeriodsPerYear(contributionFrequency);
+            var ratePerPeriod = returnRate / getPeriodsPerYear(contributionFrequency);
+
+            var principalData = [startAmount];
+            var interestData = [0];
+            var balanceData = [startAmount];
+            var missData =0;
+            var principal = startAmount;
+            var interest = 0;
+            var balance = startAmount;
+            var i;
+            for (i = 1; i <= totalPeriods; i++) {
+                //if (i % getPeriodsPerYear(contributionFrequency) === 1) {
+                //    principal += additionalContribution;
+                   // balance += additionalContribution;
+                //}
+                principal += additionalContribution;
+                balance += additionalContribution;
+                interest = balance * ratePerPeriod;
+                balance += interest;
+
+                principalData.push(principal);
+                interestData.push(interest);
+              //  if (i % getPeriodsPerYear(contributionFrequency) === 1) {
+                balanceData.push(balance);
+               // }
+                missData = balance-principal;
+            }
+            console.log("funciton in calculateEndBalance: "+balance);
+            return [balance, missData];
+        }
+
+        function showTooltip(elementId) {
+            var tooltip = document.getElementById(elementId + 'Tooltip');
+            tooltip.style.display = 'inline';
+        }
+
+
+        function hideTooltip(elementId) {
+            var tooltip = document.getElementById(elementId + 'Tooltip');
+            tooltip.style.display = 'none';
+        }
+        function getPeriodsPerYear(contributionFrequency) {
+            switch (contributionFrequency) {
+                case "yearly":
+                    return 1;
+                case "semiannually":
+                    return 2;
+                case "quarterly":
+                    return 4;
+                case "monthly":
+                    return 12;
+                default:
+                    return 1;
+            }
+        }
+
+        function generateChart(startAmount, returnRate, years, additionalContribution, contributionFrequency, contributionTiming) {
+            var totalPeriods = years * getPeriodsPerYear(contributionFrequency);
+            var periodLabels = [];
+
+            for (var i = 0; i <= years; i++) {
+                periodLabels.push(i.toString());
+            }
+
+            var principalData = [];
+            var interestData = [];
+            var balanceData = [];
+
+            var principal = startAmount;
+            var interest = 0;
+            var balance = startAmount;
+
+            /*
+            for (var i = 1; i <= totalPeriods; i++) {
+                if (contributionTiming === "beginning" && i % getPeriodsPerYear(contributionFrequency) === 1) {
+                    principal += additionalContribution;
+                }
+
+                balance += additionalContribution;
+                interest = balance * (returnRate / 100 / getPeriodsPerYear(contributionFrequency));
+                balance += interest;
+
+                if (contributionTiming === "end" && i % getPeriodsPerYear(contributionFrequency) === 0) {
+                    principal += additionalContribution;
+                    balance += additionalContribution;
+                }
+
+                principalData.push(principal);
+                interestData.push(interest);
+                balanceData.push(balance);
+                console.log(balanceData);
+            }
+            */
+           var ratePerPeriod = returnRate / 100/ getPeriodsPerYear(contributionFrequency);
+            
+            for (var i = 0; i <= totalPeriods-1; i++) {
+                //if (i % getPeriodsPerYear(contributionFrequency) === 1) {
+                //    principal += additionalContribution;
+                   // balance += additionalContribution;
+                //}
+                principal += additionalContribution;
+                balance += additionalContribution;
+                interest = balance * ratePerPeriod;
+                balance += interest;
+                //console.log("funciton in chart: "+balance);
+
+                principalData.push(principal);
+                interestData.push(interest);
+                if ((i+1) % getPeriodsPerYear(contributionFrequency) === 0) {
+                    balanceData.push(balance);
+                }
+            }
+
+            if (chart) {
+                chart.destroy();
+            }
+            
+            //console.log(balancedData) 
+            
+            var ctx = document.getElementById("chart").getContext("2d");
+            chart = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: periodLabels,
+                    datasets: [
+                        {
+                            label: "Principal",
+                            data: principalData,
+                            borderColor: "blue",
+                            fill: false
+                        },
+                    
+                        {
+                            label: "Balance",
+                            data: balanceData,
+                            borderColor: "red",
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: "Years"
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: "Amount"
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+</script>
+</head>
+
+<body>
+    <div style="margin: 0 auto; width: 800px; text-align: left;">
+        <h2>Return Rate Calculator</h2>
+        <form>
+            <table cellpadding="5" cellspacing="0" border="1">
+                <tr>
+                    <td class="graybg1">Target Amount:</td>
+                    <td align="left">
+                        <input type="text" id="targetAmount" value="100000" name="targetAmount" size="15" onmouseover="showTooltip('targetAmount')" onmouseout="hideTooltip('targetAmount')" />
+                    </td>
+                    <td id="targetAmountTooltip" class="font11" style="display: none;">When it comes to investing, having a target amount or end goal is essential because it gives you something specific to aim for and helps you stay focused on your financial objectives. A target amount refers to the specific sum of money you want to accumulate through your investments over a certain period of time.</td>
+                </tr>
+                <tr>
+                    <td class="graybg1">Start Amount:</td>
+                    <td align="left">
+                        <input type="text" id="startAmount" value="100" name="startAmount" size="15" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="graybg1">Number of Years:</td>
+                    <td align="left">
+                        <input type="text" id="years" value="50" name="years" size="15" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="graybg1">Additional Contribution:</td>
+                    <td align="left">
+                        <input type="text" id="additionalContribution"  value="50" name="additionalContribution" size="15" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="graybg1">Contribution Frequency:</td>
+                    <td align="left">
+                        <select id="contributionFrequency" name="contributionFrequency">
+                            <option value="yearly">Yearly</option>
+                            <option value="semiannually">Semiannually</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="graybg1">Contribution Timing:</td>
+                    <td align="left">
+                        <select id="contributionTiming" name="contributionTiming">
+                            <option value="beginning">Beginning</option>
+                            <option value="end">End</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="button" value="Calculate Return Rate" onclick="calculate()" />
+                    </td>
+                </tr>
+            </table>
+            <script>        
+            function proComma(pcid){
+                document.getElementById(pcid).onblur=function(){insertComma(pcid, 'd');};
+                insertComma(pcid, 'd');
+            }
+            function refreshEvery(ms) {return new Promise(resolve => setTimeout(resolve, ms));}async function runWhenLoaded(refcheck){while(typeof insertComma !== "function") {await refreshEvery(200);}refcheck();}
+            runWhenLoaded(function() {
+                proComma("targetAmount");
+                proComma("startAmount");
+                proComma("additionalContribution");
+            });
+            </script>
+        </form>
+
+        <h3>Return Rate:</h3>
+        <div id="returnRate"></div>
+
+        <h3>Balance Accumulation Graph:</h3>
+        <canvas id="chart"></canvas>
+    </div>
+</body>
+
+</html>

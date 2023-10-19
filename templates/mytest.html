@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Investment Calculator</title>
+    </head>
+    <body>
+        
+        <div id="contentout">
+            <div id="content">
+
+                <table width="100%" class="panel2" cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td valign="top" width="45%">
+                            <form name="calform" action="/investment-calculator.html#calresult">
+                                <input type="hidden" name="ctype" id="ctype" value="returnrate">
+                                <table id="cendamount" width="310">
+                                    <tr>
+                                        <td width="180">Your Target</td>
+                                        <td width="130">
+                                            <input type="text" name="ctargetamountv" id="ctargetamountv" value="1000000" class="inlong indollar">
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table id="cstartingamount" width="310">
+                                    <tr>
+                                        <td width="180">Starting Amount</td>
+                                        <td width="130">
+                                            <input type="text" name="cstartingprinciplev" id="cstartingprinciplev" value="20000" class="inlong indollar">
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table id="cinvestlength" width="310">
+                                    <tr>
+                                        <td width="180">After</td>
+                                        <td width="130">
+                                            <input type="text" name="cyearsv" id="cyearsv" value="10" class="inlong inuiyear">
+                                            <span class="inuiyearspan">years</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table id="creturnrate" width="310">
+                                    <tr>
+                                        <td width="180">Return Rate</td>
+                                        <td width="130">
+                                            <input type="text" name="cinterestratev" id="cinterestratev" value="6" class="inlong inpct">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Compound</td>
+                                        <td>
+                                            <select id="ccompound" name="ccompound" class="inlong" style="text-align:left;">
+                                                <option value="annually" selected>annually</option>
+                                                <option value="semiannually">semiannually</option>
+                                                <option value="quarterly">quarterly</option>
+                                                <option value="monthly">monthly</option>
+                                                <option value="semimonthly">semimonthly</option>
+                                                <option value="biweekly">biweekly</option>
+                                                <option value="weekly">weekly</option>
+                                                <option value="daily">daily</option>
+                                                <option value="continuously">continuously</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table id="ccontributeamount" width="310">
+                                    <tr>
+                                        <td width="180">Additional Contribution</td>
+                                        <td width="130">
+                                            <input type="text" name="ccontributeamountv" id="ccontributeamountv" value="1000" class="inlong indollar">
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table id="cperiod" width="300">
+                                    <tr>
+                                        <td align="right">
+                                            Contribute at the
+	
+                                            <label for="cadditionat1" class="cbcontainer">
+                                                <input name="cadditionat1" id="cadditionat1" value="beginning" type="radio">
+                                                <span class="rbmark"></span>
+                                                beginning
+                                            </label>
+                                            &nbsp;
+                                            <label for="cadditionat2" class="cbcontainer">
+                                                <input name="cadditionat1" id="cadditionat2" value="end" type="radio" checked>
+                                                <span class="rbmark"></span>
+                                                end
+                                            </label>
+                                            <br>
+                                            of each
+	
+                                            <label for="ciadditionat1" class="cbcontainer">
+                                                <input name="ciadditionat1" id="ciadditionat1" value="monthly" type="radio" checked>
+                                                <span class="rbmark"></span>
+                                                month
+                                            </label>
+                                            &nbsp;
+                                            <label for="ciadditionat2" class="cbcontainer">
+                                                <input name="ciadditionat1" id="ciadditionat2" value="annually" type="radio">
+                                                <span class="rbmark"></span>
+                                                year
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <input name="printit" value="0" type="hidden">
+                                            <input type="submit" name="x" value="Calculate">
+                                        </td>
+                                    </tr>
+                                </table>
+                        </td>
+                        <td width="5%">&nbsp;</td>
+                        <td valign="top" width="50%">
+                            <h2 class="h2result">Results</h2>
+                            <p>
+                                You will need an annual return rate of 
+                                <font color='green'>
+                                    <b>32.594%</b>
+                                </font>
+                                to reach the target of $1,000,000.00.
+                            </p>
+                            <table cellpadding='3' width='100%'>
+                                <tr bgcolor='#eeeeee'>
+                                    <td>
+                                        <b>End Balance</b>
+                                    </td>
+                                    <td align=right>
+                                        <b>$1,000,000.00</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Starting Amount</td>
+                                    <td align=right>$20,000.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Contributions</td>
+                                    <td align=right>$120,000.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Interest</td>
+                                    <td align=right>$860,000.00</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+</form><script>
+    function proComma(pcid) {
+        document.getElementById(pcid).onblur = function() {
+            insertComma(pcid, 'd');
+        }
+        ;
+        insertComma(pcid, 'd');
+    }
+    function refreshEvery(ms) {
+        return new Promise(resolve=>setTimeout(resolve, ms));
+    }
+    async function runWhenLoaded(refcheck) {
+        while (typeof insertComma !== "function") {
+            await refreshEvery(200);
+        }
+        refcheck();
+    }
+    runWhenLoaded(function() {
+        proComma("ctargetamountv");
+        proComma("cstartingprinciplev");
+        proComma("ccontributeamountv");
+    });
+</script>
+
+<script>
+    function popMenu(inval, insubmit) {
+        htmlVal = "";
+        document.getElementById("cendamount").style.display = 'block';
+        document.getElementById("cinvestlength").style.display = 'block';
+        document.getElementById("cstartingamount").style.display = 'block';
+        document.getElementById("creturnrate").style.display = 'block';
+        document.getElementById("ccontributeamount").style.display = 'block';
+        document.getElementById("ctype").value = inval;
+
+        
+        if (insubmit == 1)
+            document.calform.submit();
+        htmlVal = "<ul>" + htmlVal + "</ul>";
+        document.getElementById("topmenu").innerHTML = htmlVal;
+    }
+    popMenu('returnrate', 0);
+</script>
+<script>
+    allData = "20000.00:20000.00:21475.77:475.77:21000.00:475.77:0.00:0.00|21000.00:21475.77:22986.65:510.88:22000.00:986.65:0.00:0.00|22000.00:22986.65:24533.47:546.82:23000.00:1533.47:0.00:0.00|23000.00:24533.47:26117.08:583.62:24000.00:2117.08:0.00:0.00|24000.00:26117.08:27738.37:621.29:25000.00:2738.37:0.00:0.00|25000.00:27738.37:29398.23:659.86:26000.00:3398.23:0.00:0.00|26000.00:29398.23:31097.57:699.34:27000.00:4097.57:0.00:0.00|27000.00:31097.57:32837.33:739.77:28000.00:4837.33:0.00:0.00|28000.00:32837.33:34618.49:781.15:29000.00:5618.49:0.00:0.00|29000.00:34618.49:36442.01:823.52:30000.00:6442.01:0.00:0.00|30000.00:36442.01:38308.91:866.90:31000.00:7308.91:0.00:0.00|31000.00:38308.91:40220.23:911.31:32000.00:8220.23:0.00:0.00|32000.00:40220.23:42177.01:956.78:33000.00:9177.01:0.00:0.00|33000.00:42177.01:44180.34:1003.33:34000.00:10180.34:0.00:0.00|34000.00:44180.34:46231.32:1050.99:35000.00:11231.32:0.00:0.00|35000.00:46231.32:48331.10:1099.78:36000.00:12331.10:0.00:0.00|36000.00:48331.10:50480.82:1149.73:37000.00:13480.82:0.00:0.00|37000.00:50480.82:52681.69:1200.87:38000.00:14681.69:0.00:0.00|38000.00:52681.69:54934.91:1253.22:39000.00:15934.91:0.00:0.00|39000.00:54934.91:57241.73:1306.82:40000.00:17241.73:0.00:0.00|40000.00:57241.73:59603.43:1361.70:41000.00:18603.43:0.00:0.00|41000.00:59603.43:62021.31:1417.88:42000.00:20021.31:0.00:0.00|42000.00:62021.31:64496.71:1475.40:43000.00:21496.71:0.00:0.00|43000.00:64496.71:67030.99:1534.28:44000.00:23030.99:0.00:0.00|44000.00:67030.99:69625.56:1594.57:45000.00:24625.56:0.00:0.00|45000.00:69625.56:72281.85:1656.29:46000.00:26281.85:0.00:0.00|46000.00:72281.85:75001.33:1719.48:47000.00:28001.33:0.00:0.00|47000.00:75001.33:77785.50:1784.17:48000.00:29785.50:0.00:0.00|48000.00:77785.50:80635.91:1850.40:49000.00:31635.91:0.00:0.00|49000.00:80635.91:83554.12:1918.21:50000.00:33554.12:0.00:0.00|50000.00:83554.12:86541.75:1987.63:51000.00:35541.75:0.00:0.00|51000.00:86541.75:89600.45:2058.70:52000.00:37600.45:0.00:0.00|52000.00:89600.45:92731.92:2131.46:53000.00:39731.92:0.00:0.00|53000.00:92731.92:95937.88:2205.96:54000.00:41937.88:0.00:0.00|54000.00:95937.88:99220.10:2282.22:55000.00:44220.10:0.00:0.00|55000.00:99220.10:102580.40:2360.30:56000.00:46580.40:0.00:0.00|56000.00:102580.40:106020.64:2440.24:57000.00:49020.64:0.00:0.00|57000.00:106020.64:109542.72:2522.08:58000.00:51542.72:0.00:0.00|58000.00:109542.72:113148.58:2605.86:59000.00:54148.58:0.00:0.00|59000.00:113148.58:116840.22:2691.64:60000.00:56840.22:0.00:0.00|60000.00:116840.22:120619.68:2779.46:61000.00:59619.68:0.00:0.00|61000.00:120619.68:124489.05:2869.37:62000.00:62489.05:0.00:0.00|62000.00:124489.05:128450.46:2961.41:63000.00:65450.46:0.00:0.00|63000.00:128450.46:132506.11:3055.65:64000.00:68506.11:0.00:0.00|64000.00:132506.11:136658.24:3152.13:65000.00:71658.24:0.00:0.00|65000.00:136658.24:140909.14:3250.90:66000.00:74909.14:0.00:0.00|66000.00:140909.14:145261.17:3352.02:67000.00:78261.17:0.00:0.00|67000.00:145261.17:149716.72:3455.55:68000.00:81716.72:0.00:0.00|68000.00:149716.72:154278.26:3561.54:69000.00:85278.26:0.00:0.00|69000.00:154278.26:158948.32:3670.06:70000.00:88948.32:0.00:0.00|70000.00:158948.32:163729.47:3781.15:71000.00:92729.47:0.00:0.00|71000.00:163729.47:168624.35:3894.89:72000.00:96624.35:0.00:0.00|72000.00:168624.35:173635.68:4011.33:73000.00:100635.68:0.00:0.00|73000.00:173635.68:178766.22:4130.54:74000.00:104766.22:0.00:0.00|74000.00:178766.22:184018.81:4252.59:75000.00:109018.81:0.00:0.00|75000.00:184018.81:189396.35:4377.54:76000.00:113396.35:0.00:0.00|76000.00:189396.35:194901.82:4505.46:77000.00:117901.82:0.00:0.00|77000.00:194901.82:200538.25:4636.43:78000.00:122538.25:0.00:0.00|78000.00:200538.25:206308.76:4770.51:79000.00:127308.76:0.00:0.00|79000.00:206308.76:212216.55:4907.79:80000.00:132216.55:0.00:0.00|80000.00:212216.55:218264.87:5048.32:81000.00:137264.87:0.00:0.00|81000.00:218264.87:224457.08:5192.20:82000.00:142457.08:0.00:0.00|82000.00:224457.08:230796.59:5339.51:83000.00:147796.59:0.00:0.00|83000.00:230796.59:237286.90:5490.32:84000.00:153286.90:0.00:0.00|84000.00:237286.90:243931.62:5644.71:85000.00:158931.62:0.00:0.00|85000.00:243931.62:250734.39:5802.78:86000.00:164734.39:0.00:0.00|86000.00:250734.39:257699.00:5964.61:87000.00:170699.00:0.00:0.00|87000.00:257699.00:264829.29:6130.29:88000.00:176829.29:0.00:0.00|88000.00:264829.29:272129.19:6299.90:89000.00:183129.19:0.00:0.00|89000.00:272129.19:279602.75:6473.56:90000.00:189602.75:0.00:0.00|90000.00:279602.75:287254.09:6651.34:91000.00:196254.09:0.00:0.00|91000.00:287254.09:295087.45:6833.36:92000.00:203087.45:0.00:0.00|92000.00:295087.45:303107.16:7019.70:93000.00:210107.16:0.00:0.00|93000.00:303107.16:311317.63:7210.48:94000.00:217317.63:0.00:0.00|94000.00:311317.63:319723.43:7405.79:95000.00:224723.43:0.00:0.00|95000.00:319723.43:328329.19:7605.76:96000.00:232329.19:0.00:0.00|96000.00:328329.19:337139.66:7810.48:97000.00:240139.66:0.00:0.00|97000.00:337139.66:346159.72:8020.06:98000.00:248159.72:0.00:0.00|98000.00:346159.72:355394.36:8234.64:99000.00:256394.36:0.00:0.00|99000.00:355394.36:364848.68:8454.32:100000.00:264848.68:0.00:0.00|100000.00:364848.68:374527.90:8679.22:101000.00:273527.90:0.00:0.00|101000.00:374527.90:384437.38:8909.48:102000.00:282437.38:0.00:0.00|102000.00:384437.38:394582.58:9145.21:103000.00:291582.58:0.00:0.00|103000.00:394582.58:404969.13:9386.55:104000.00:300969.13:0.00:0.00|104000.00:404969.13:415602.76:9633.63:105000.00:310602.76:0.00:0.00|105000.00:415602.76:426489.35:9886.59:106000.00:320489.35:0.00:0.00|106000.00:426489.35:437634.91:10145.56:107000.00:330634.91:0.00:0.00|107000.00:437634.91:449045.61:10410.70:108000.00:341045.61:0.00:0.00|108000.00:449045.61:460727.75:10682.14:109000.00:351727.75:0.00:0.00|109000.00:460727.75:472687.80:10960.04:110000.00:362687.80:0.00:0.00|110000.00:472687.80:484932.35:11244.56:111000.00:373932.35:0.00:0.00|111000.00:484932.35:497468.19:11535.84:112000.00:385468.19:0.00:0.00|112000.00:497468.19:510302.24:11834.05:113000.00:397302.24:0.00:0.00|113000.00:510302.24:523441.59:12139.35:114000.00:409441.59:0.00:0.00|114000.00:523441.59:536893.50:12451.92:115000.00:421893.50:0.00:0.00|115000.00:536893.50:550665.42:12771.92:116000.00:434665.42:0.00:0.00|116000.00:550665.42:564764.95:13099.53:117000.00:447764.95:0.00:0.00|117000.00:564764.95:579199.89:13434.94:118000.00:461199.89:0.00:0.00|118000.00:579199.89:593978.22:13778.33:119000.00:474978.22:0.00:0.00|119000.00:593978.22:609108.10:14129.88:120000.00:489108.10:0.00:0.00|120000.00:609108.10:624597.89:14489.80:121000.00:503597.89:0.00:0.00|121000.00:624597.89:640456.17:14858.28:122000.00:518456.17:0.00:0.00|122000.00:640456.17:656691.70:15235.52:123000.00:533691.70:0.00:0.00|123000.00:656691.70:673313.44:15621.74:124000.00:549313.44:0.00:0.00|124000.00:673313.44:690330.59:16017.15:125000.00:565330.59:0.00:0.00|125000.00:690330.59:707752.55:16421.96:126000.00:581752.55:0.00:0.00|126000.00:707752.55:725588.96:16836.41:127000.00:598588.96:0.00:0.00|127000.00:725588.96:743849.67:17260.71:128000.00:615849.67:0.00:0.00|128000.00:743849.67:762544.77:17695.10:129000.00:633544.77:0.00:0.00|129000.00:762544.77:781684.61:18139.83:130000.00:651684.61:0.00:0.00|130000.00:781684.61:801279.75:18595.14:131000.00:670279.75:0.00:0.00|131000.00:801279.75:821341.03:19061.28:132000.00:689341.03:0.00:0.00|132000.00:821341.03:841879.54:19538.51:133000.00:708879.54:0.00:0.00|133000.00:841879.54:862906.64:20027.09:134000.00:728906.64:0.00:0.00|134000.00:862906.64:884433.93:20527.30:135000.00:749433.93:0.00:0.00|135000.00:884433.93:906473.33:21039.40:136000.00:770473.33:0.00:0.00|136000.00:906473.33:929037.02:21563.69:137000.00:792037.02:0.00:0.00|137000.00:929037.02:952137.46:22100.44:138000.00:814137.46:0.00:0.00|138000.00:952137.46:975787.43:22649.97:139000.00:836787.43:0.00:0.00|139000.00:975787.43:1000000.00:23212.57:140000.00:860000.00:0.00:0.00|";
+    cyears = 10;
+    remainingTerm = 0;
+    biggestItem = 120;
+    var chartStrBuilderBalance = [];
+    var chartStrBuilderPrincipal = [];
+    var chartStrBuilderInterest = [];
+    var chartStrBuilderTax = [];
+    xmax = cyears;
+    if (cyears <= 1)
+        xmax = cyears * 12;
+    chartStrBuilderBalance.push([0, 20000]);
+    chartStrBuilderPrincipal.push([0, 20000]);
+    chartStrBuilderInterest.push([0, 0]);
+    chartStrBuilderTax.push([0, 0]);
+
+    var allDataArray = allData.split("|");
+    outPutData = new Array();
+    for (var i = 0; i < allDataArray.length; i++) {
+        if ((allDataArray[i] + "").length > 3) {
+            tempArray = allDataArray[i].split(":");
+            outPutData[i] = new Array();
+            outPutData[i][0] = parseFloat(tempArray[0]);
+            outPutData[i][1] = parseFloat(tempArray[1]);
+            outPutData[i][2] = parseFloat(tempArray[2]);
+            outPutData[i][3] = parseFloat(tempArray[3]);
+            outPutData[i][4] = parseFloat(tempArray[4]);
+            outPutData[i][5] = parseFloat(tempArray[5]);
+            outPutData[i][6] = parseFloat(tempArray[6]);
+            outPutData[i][7] = parseFloat(tempArray[7]);
+
+            tempVal = (i + 1) / 12;
+            if (cyears <= 1)
+                tempVal = i + 1;
+            chartStrBuilderBalance.push([tempVal, outPutData[i][2]]);
+            chartStrBuilderPrincipal.push([tempVal, outPutData[i][4]]);
+            chartStrBuilderInterest.push([tempVal, outPutData[i][5]]);
+            chartStrBuilderTax.push([tempVal, outPutData[i][7]]);
+        }
+    }
+
+    var tempVal = 45;
+    $(function() {
+        $('#cpiechartdiv').highcharts({
+            title: {
+                text: ''
+            },
+            tooltip: {
+                formatter: function() {
+                    return this.point.name + '<br><b>' + this.percentage.toFixed(1) + ' %</b><br>$' + this.y;
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    showInLegend: true,
+                    center: ["50%", "18%"],
+                    dataLabels: {
+                        color: '#eeeeee',
+                        connectorColor: '#FFFFFF',
+                        connectorPadding: -55,
+                        distance: -12,
+                        softConnector: false,
+                        formatter: function() {
+                            return this.percentage.toFixed(0) + '%';
+                        }
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                y: -28,
+                floating: true
+            },
+            series: [{
+                type: 'pie',
+                name: 'Share',
+                data: [['Starting Amount', 20000], ['Total Contributions', 120000], ['Interest', 860000]]
+            }]
+        });
+    });
+    $(function() {
+        $('#cchartdiv').highcharts({
+            chart: {
+                type: 'spline',
+                plotBorderWidth: 1
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                min: 0,
+                max: xmax,
+                title: {
+                    text: ''
+                },
+                gridLineWidth: 1,
+                labels: {
+                    formatter: function() {
+                        if (cyears <= 1) {
+                            return this.value + 'mo';
+                        } else {
+                            return this.value + 'yr';
+                        }
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: ''
+                },
+                gridLineWidth: 1,
+                labels: {
+                    formatter: function() {
+                        tempVal = this.value;
+                        if (this.value > 999)
+                            tempVal = (this.value / 1000).toFixed(1) + 'K';
+                        if (this.value > 999999)
+                            tempVal = (this.value / 1000000).toFixed(1) + 'M';
+                        return '$' + tempVal;
+                    }
+                }
+            },
+            tooltip: {
+                enabled: false,
+                formatter: function() {
+                    return this.series.name + ': $' + this.y;
+                }
+            },
+            plotOptions: {
+                spline: {
+                    lineWidth: 4,
+                    states: {
+                        hover: {
+                            lineWidth: 3
+                        }
+                    },
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'top',
+                floating: true,
+                backgroundColor: '#FCFFC5',
+                borderWidth: 1,
+                x: 55,
+                y: 3
+            },
+            series: [{
+                name: 'Principal',
+                data: chartStrBuilderPrincipal
+            }, {
+                name: 'Interest',
+                data: chartStrBuilderInterest
+            }, {
+                name: 'Balance',
+                data: chartStrBuilderBalance
+            }]
+        });
+    });
+    function showAmo(showOption) {
+        var showCents = 1;
+
+        var outputStrBuilder = [];
+        outputStrBuilder.push("<table width='100%' class='cinfoT'>");
+
+        outputStrBuilder.push("<tr align='right'><td>&nbsp;</td><td><b>start principal</b></td><td><b>start balance</b></td><td><b>interest</b></td><td><b>end balance</b></td><td><b>end principal</b></td></tr>");
+        if (showOption == 1) {
+            for (i = 1; i <= (cyears * 12); i++) {
+                if ((i % 2) == 1) {
+                    outputStrBuilder.push("<tr align=right><td>" + i);
+                } else {
+                    outputStrBuilder.push("<tr align='right'><td>" + i);
+                }
+                outputStrBuilder.push("</td><td>" + formatAsMoneyFull(outPutData[(i - 1)][0], showCents) + "</td><td>" + formatAsMoneyFull(outPutData[(i - 1)][1], showCents) + "</td><td>" + formatAsMoneyFull(outPutData[(i - 1)][3], showCents) + "</td><td>" + formatAsMoneyFull(outPutData[(i - 1)][2], showCents) + "</td><td>" + formatAsMoneyFull(outPutData[(i - 1)][4], showCents) + "</td></tr>");
+                if ((i % 12) == 0) {
+                    tempVal = parseInt(i / 12);
+                    outputStrBuilder.push("<tr align='center'><td colspan='7'><b>year " + tempVal + " end</b></td></tr>");
+                }
+            }
+            if (remainingTerm > 0.0001) {
+                showLastNum = (biggestItem + remainingTerm).toFixed(3);
+                outputStrBuilder.push("<tr align=right><td>" + showLastNum + "</td><td>" + formatAsMoneyFull(outPutData[biggestItem][0], showCents) + "</td><td>" + formatAsMoneyFull(outPutData[biggestItem][1], showCents) + "</td><td>" + formatAsMoneyFull(outPutData[biggestItem][3], showCents) + "</td><td>" + formatAsMoneyFull(outPutData[biggestItem][2], showCents) + "</td><td>" + formatAsMoneyFull(outPutData[biggestItem][4], showCents) + "</td></tr>");
+            }
+        } else {
+            for (i = 0; i < parseInt(cyears); i++) {
+                tData0 = outPutData[(i * 12)][0];
+                tData1 = outPutData[(i * 12)][1];
+                tData2 = outPutData[(i * 12 + 11)][2];
+                tData4 = outPutData[(i * 12 + 11)][4];
+                tData3 = 0;
+                tData6 = 0;
+                for (j = 0; j < 12; j++) {
+                    idN = i * 12 + j;
+                    tData3 += outPutData[idN][3];
+                    tData6 += outPutData[idN][6];
+                }
+
+                if ((i % 2) == 1) {
+                    outputStrBuilder.push("<tr align=right><td>" + (i + 1));
+                } else {
+                    outputStrBuilder.push("<tr align=right><td>" + (i + 1));
+                }
+                outputStrBuilder.push("</td><td>" + formatAsMoneyFull(tData0, showCents) + "</td><td>" + formatAsMoneyFull(tData1, showCents) + "</td><td>" + formatAsMoneyFull(tData3, showCents) + "</td><td>" + formatAsMoneyFull(tData2, showCents) + "</td><td>" + formatAsMoneyFull(tData4, showCents) + "</td></tr>");
+            }
+
+            if ((cyears - parseInt(cyears)) > 0.0001) {
+                i = parseInt(cyears);
+                tData0 = outPutData[(i * 12)][0];
+                tData1 = outPutData[(i * 12)][1];
+                tData2 = outPutData[biggestItem][2];
+                tData4 = outPutData[biggestItem][4];
+                tData3 = 0;
+                tData6 = 0;
+                for (j = (i * 12); j <= biggestItem; j++) {
+                    idN = j;
+                    tData3 += outPutData[idN][3];
+                    tData6 += outPutData[idN][6];
+                }
+                if ((i % 2) == 1) {
+                    outputStrBuilder.push("<tr align=right><td>" + (i + 1));
+                } else {
+                    outputStrBuilder.push("<tr align=right><td>" + (i + 1));
+                }
+                outputStrBuilder.push("</td><td>" + formatAsMoneyFull(tData0, showCents) + "</td><td>" + formatAsMoneyFull(tData1, showCents) + "</td><td>" + formatAsMoneyFull(tData3, showCents) + "</td><td>" + formatAsMoneyFull(tData2, showCents) + "</td><td>" + formatAsMoneyFull(tData4, showCents) + "</td></tr>");
+            }
+
+        }
+        outputStrBuilder.push("</table>");
+        outPutString = outputStrBuilder.join("");
+        if (showOption == 1) {
+            document.getElementById("camortizationschdis").innerHTML = "<h2>Monthly Schedule</h2><div id='topmenu'><ul><li><a href='#' onclick='showAmo(0);return false;'>Annual Schedule</a></li> <li id='menuon'><a href='#' onclick='showAmo(1);return false;'>Monthly Schedule</a></li></ul></div>" + outPutString;
+        } else {
+            document.getElementById("camortizationschdis").innerHTML = "<h2>Annual Schedule</h2><div id='topmenu'><ul><li id='menuon'><a href='#' onclick='showAmo(0);return false;'>Annual Schedule</a></li> <li><a href='#' onclick='showAmo(1);return false;'>Monthly Schedule</a></li></ul></div>" + outPutString;
+        }
+    }
+    if (cyears > 2) {
+        showAmo(0);
+    } else {
+        showAmo(1);
+    }
+</script>
+
+
+</div>
+
+
+</div>
+</div>
+</body></html>

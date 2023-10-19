@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+{% include "head.html" %}
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<body>
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        <!-- Desktop sidebar -->
+
+        {% include "navbar.html" %}
+
+        <!-- Mobile sidebar -->
+        <!-- Backdrop -->
+        {% include "mobilenav.html" %}
+
+        <div class="flex flex-col flex-1 w-full">
+            <main class="h-full overflow-y-auto">
+                <div class="container px-6 mx-auto grid">
+
+                    
+                    <h2 style="font-size: 2.6rem;"
+                        class="mt-6 font-bold text-gray-700 text-center dark:text-gray-200 ml-8">
+                        Investing Simplified:
+                    </h2>
+
+                    <center>
+                    <div style="width: 1000px; ">
+                        <table style="width: 100%;">
+                          <tr>
+                            <td style="width: 50%;">
+                              <div style="border: 10px solid rgb(0, 100, 37);">
+                                <img src="/static/assets/img/investinggraphic.png" class="img-fluid img-thumbnail" style="width: 100%;">
+                              </div>
+                            </td>
+                            <td style="width: 50%;">
+                                <p class="text-lg text-gray-800 dark:text-gray-600 ml-8 bg-gray-200">
+                                    In the following, we will explain the basics of investing, different types of investments, and how you can get started!
+                                  </p>
+                                  <br>
+                                  <p class="text-md text-gray-600 dark:text-gray-600 ml-8">
+                                    Usually when people think of investing, they think of extremely wealthy people from Wall Street putting hours of their life into investing. While this may be true, there are many different ways of investing and believe it or not, you can also invest.
+                                  </p>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </center>
+                    <center>
+                        <p><span id="changingText" style="font-size: 2.5rem;">Follow the lessons below to begin your financial journey!</span></p>
+
+                        <script>
+                            function changeTextColor() {
+                                var textElement = document.getElementById("changingText");
+                                var currentColor = textElement.style.color;
+                                textElement.style.color = (currentColor === "green") ? "black" : "green";
+                            }
+                    
+                            setInterval(changeTextColor, 1000);
+                        </script>
+                    </center>
+                    <center>
+                        <a href="./lesson1.html">
+                            <button style="background-color: green; color: rgb(0, 0, 0); padding: 10px 20px; border: none; cursor: pointer;">
+                               Lesson 1: What's investing?
+                            </button>
+                        </a>
+                        <br>
+                        <svg width="50" height="100" viewBox="0 0 50 100" fill="green">
+                            <rect x="17.5" y="0" width="15" height="30" />
+                            <polygon points="0,30 50,30 25,100"/>
+                        </svg>
+                        <a href="./lesson2.html">
+                            <button style="background-color: green; color: rgb(0, 0, 0); padding: 10px 20px; border: none; cursor: pointer;">
+                                 Lesson 2: When Do I Start?
+                            </button>
+                </a>
+                <br>
+                <svg width="50" height="100" viewBox="0 0 50 100" fill="green">
+                    <rect x="17.5" y="0" width="15" height="30" />
+                    <polygon points="0,30 50,30 25,100"/>
+                </svg>
+                <a href="./lesson3.html">
+                    <button style="background-color: green; color: rgb(0, 0, 0); padding: 10px 20px; border: none; cursor: pointer;">
+                         Lesson 3: Beginner Investments to Start
+                    </button>
+                    </a>
+                        <br>
+                        <svg width="50" height="100" viewBox="0 0 50 100" fill="green">
+                            <rect x="17.5" y="0" width="15" height="30" />
+                            <polygon points="0,30 50,30 25,100"/>
+                        </svg>
+                        <a href="./lesson4.html">
+                            <button style="background-color: green; color: rgb(0, 0, 0); padding: 10px 20px; border: none; cursor: pointer;">
+                                Lesson 4: How do I get started?
+                            </button>
+                </a>
+                <br>
+                <svg width="50" height="100" viewBox="0 0 50 100" fill="green">
+                    <rect x="17.5" y="0" width="15" height="30" />
+                    <polygon points="0,30 50,30 25,100"/>
+                </svg>
+                <a href="/">
+                    <button style="background-color: green; color: rgb(0, 0, 0); padding: 10px 20px; border: none; cursor: pointer;">
+                        Lesson 5: Start your own research and be financially independent!
+                    </button>
+                </a>
+                    </center>
+
+
+            </div>
+
+            {% include "footer.html" %}
+            </div>
+

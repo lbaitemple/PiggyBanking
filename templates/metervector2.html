@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Meter Vector Graphic</title>
+  <style>
+    .meter {
+      width: 200px;
+      height: 20px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .meter-fill {
+      height: 100%;
+      transition: width 0.5s;
+    }
+
+    .meter-fill.red {
+      background-color: red;
+    }
+
+    .meter-fill.yellow {
+      background-color: yellow;
+    }
+
+    .meter-fill.light-green {
+      background-color: rgb(126, 239, 126);
+    }
+
+    .meter-fill.dark-green {
+      background-color: darkgreen;
+    }
+  </style>
+</head>
+<body>
+  <div class="meter">
+    <div class="meter-fill dark-green" style="width:0%;"></div>
+  </div>
+
+  <script>
+    const meterFill = document.querySelector('.meter-fill');
+    const width = parseFloat(meterFill.style.width);
+
+    if (width >= 0 && width <= 25) {
+      meterFill.classList.add('red');
+    } else if (width > 25 && width <= 50) {
+      meterFill.classList.add('yellow');
+    } else if (width > 50 && width <= 75) {
+      meterFill.classList.add('light-green');
+    } else if (width > 75 && width <= 100) {
+      meterFill.classList.add('dark-green');
+    }
+  </script>
+</body>
+</html>

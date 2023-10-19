@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+{% include "head.html" %}
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+<body>
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        <!-- Desktop sidebar -->
+
+        {% include "navbar.html" %}
+
+        <!-- Mobile sidebar -->
+        <!-- Backdrop -->
+        {% include "mobilenav.html" %}
+
+        <div class="py-2">
+    <center>
+        <h2 style="font-size: 2rem;"
+        class="mt-6 font-semibold text-gray-700 text-left dark:text-gray-200 ml-8">
+           How do I start Investing?: Brokers Explained
+        </h2>
+    </center>   
+
+<p> Now that you have a basic idea of what types of investments work best for you, you're probably wondering how do I start now?
+
+<br> <b>What Are Brokers?</b>
+    Brokers are your investment partners – they're platforms where you buy and sell stocks, options, and more. Your choice of broker can shape your investment path.
+ <br>   
+    <b>Why It Matters</b>
+    Choosing the right broker matters. It's like finding a friend that fits your style. Let's explore some beginner-friendly options.
+    <br> 
+    <b>Broker Basics</b>
+    Look for user-friendly brokers. Fidelity offers various options and education. Vanguard focuses on simplicity and long-term investing.
+    <br> 
+    <b>Simple and Beyond</b>
+    For easy options, check out Robinhood. They've got a user-friendly app. And if you're curious, Webull has tools for trading stocks and options.
+    <br> 
+    <b>Learn While You Invest</b>
+    TD Ameritrade comes with research and learning resources. Perfect if you want to learn while you invest.
+    <br> 
+    <b>Starting Smart</b>
+    Start with index funds and ETFs as a beginner. They spread risk and are an easy way to get started.
+    <br> 
+    <b>Conclusion: Choose Wisely</b>
+    Remember, your broker sets your investing journey. Whether it's Fidelity, Vanguard, Robinhood, Webull, or TD Ameritrade, pick what suits you.
+</p>
+
+<div style="display: flex; align-items: center; justify-content: center; margin: 20px;">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/aEcsNu4vPZc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+<a href="./lesson3.html" style="position: fixed; bottom: 10px; left: 270px; color: rgb(0, 133, 69);">Previous Lesson &#8592;</a>
+<a href="./" style="position: fixed; bottom: 10px; right: 10px; color: rgb(0, 133, 69);">You're Ready to Start! &#8594;</a>
+        </div>
+    </div>

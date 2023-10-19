@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Return Rate Calculator</title>
+
+    <style>
+
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="test2.css">
+
+    <script>
+        var chart;
+
+        function calculate() {
+            var targetAmount = parseFloat(document.getElementById("targetAmount").value);
+            var startAmount = parseFloat(document.getElementById("startAmount").value);
+            var years = parseInt(document.getElementById("years").value);
+            var additionalContribution = parseFloat(document.getElementById("additionalContribution").value);
+            var contributionFrequency = document.getElementById("contributionFrequency").value;
+            var contributionTiming = document.getElementById("contributionTiming").value;
+            const meterFill = document.querySelector('.meter-fill');
+            const width = parseFloat(meterFill.style.width);
+
+        /*    if (width >= 0 && width <= 25) {
+                meterFill.classList.add('red');
+            } else if (width > 25 && width <= 50) {
+                meterFill.classList.add('yellow');
+            } else if (width > 50 && width <= 75) {
+                meterFill.classList.add('light-green');
+            } else if (width > 75 && width <= 100) {
+                meterFill.classList.add('dark-green');
+            }
+            */
+            var ret = calculateReturnRate(targetAmount, startAmount, years, additionalContribution, contributionFrequency, contributionTiming);
+            var returnRate = ret[0];
+
+        if (isNaN(returnRate)) {
+            var message = "Unable to find a solution. Please adjust the initial start amount or number of years.";
+            document.getElementById("returnRate").innerHTML = "<span style='color: red;'>" + message + "</span>";
+        } else {
+            var returnRateText = returnRate.toFixed(2) + "%";
+            var returnMessage = "";
+
+            if (returnRate >= 0 && returnRate <= 1) {
+                console.log(meterFill.classList.length);
+                if (meterFill.classList.length==1){
+                    meterFill.classList.add('dark-green');
+                }else{
+                    const classList = meterFill.classList;
+                    const currentClass = classList[classList.length - 1]; // Get the last class value
+
+                    // Replace the last class value with a new string
+                    classList.replace(currentClass, 'dark-green');
+                }
+                //document.getElementsByClassName("meter-fill").item("style").setAttribute("width") = parseInt(100*returnRate)
+                meterFill.style.width =  parseInt(returnRate+5) +"%";
+
+                //.innerHTML = '<div class="meter-fill light-green" style="width:' + parseInt(100*returnRate) + '%;"></div>'
+                returnMessage = "You should change your end target amount to be higher. Currently, in most investments you will be looking at a much higher annual return rate. Consider shooting for a greater goal! Don't worry, Investing is just that simple";
+            }
+            if (returnRate >= 1 && returnRate <= 3) {
+                if (meterFill.classList.length==1){
+                    meterFill.classList.add('dark-green');
+                }else{
+                    const classList = meterFill.classList;
+                    const currentClass = classList[classList.length - 1]; // Get the last class value
+
+                    // Replace the last class value with a new string
+                    classList.replace(currentClass, 'dark-green');
+                }
+                //document.getElementsByClassName("meter-fill").item("style").setAttribute("width") = parseInt(100*returnRate)
+                meterFill.style.width =  parseInt(returnRate+6) +"%";
+
+                returnMessage = "For a needed annual return rate of around " + parseInt(returnRate) + " %" + ", consider looking into bonds!";
+            }
+            if (returnRate >= 3 && returnRate <= 6) {
+                if (meterFill.classList.length==1){
+                    meterFill.classList.add('green');
+                }else{
+                    const classList = meterFill.classList;
+                    const currentClass = classList[classList.length - 1]; // Get the last class value
+
+                    // Replace the last class value with a new string
+                    classList.replace(currentClass, 'green');
+                }
+
+                //document.getElementsByClassName("meter-fill").item("style").setAttribute("width") = parseInt(100*returnRate)
+                meterFill.style.width =  parseInt(returnRate+10) +"%";
+
+                returnMessage = "For a needed annual return rate of around " + parseInt(returnRate) + " %" + ", consider looking into Index or Mutual Funds!";
+            }
+
+            if (returnRate >= 6 && returnRate <= 10) {
+                if (meterFill.classList.length==1){
+                    meterFill.classList.add('light-green');
+                }else{
+                    const classList = meterFill.classList;
+                    const currentClass = classList[classList.length - 1]; // Get the last class value
+
+                    // Replace the last class value with a new string
+                    classList.replace(currentClass, 'light-green');
+                }
+                //document.getElementsByClassName("meter-fill").item("style").setAttribute("width") = parseInt(100*returnRate)
+                meterFill.style.width =  parseInt(returnRate+20) +"%";
+                returnMessage = "For a needed annual return rate of around " + parseInt(returnRate) + " %" + ", consider looking into longer term stocks or ETF's!";
+            }
+
+            if (returnRate >= 10 && returnRate <= 15) {
+                if (meterFill.classList.length==1){
+                    meterFill.classList.add('yellow');
+                }else{
+                    const classList = meterFill.classList;
+                    const currentClass = classList[classList.length - 1]; // Get the last class value
+                    // Replace the last class value with a new string
+                    classList.replace(currentClass, 'yellow');
+                }
+                //document.getElementsByClassName("meter-fill").item("style").setAttribute("width") = parseInt(100*returnRate)
+                meterFill.style.width =  parseInt(returnRate+40) +"%";
+                returnMessage = "For a needed annual return rate of around " + parseInt(returnRate) + " %" + ", consider looking into shorter term stocks centered around technology, these are usually the higher growing stocks right now!";
+            }
+
+            if (returnRate >= 15 && returnRate <= 25) {
+                if (meterFill.classList.length==1){
+                    meterFill.classList.add('orange');
+                }else{
+                    const classList = meterFill.classList;
+                    const currentClass = classList[classList.length - 1]; // Get the last class value
+
+                    // Replace the last class value with a new string
+                    classList.replace(currentClass, 'orange');
+                }
+                //document.getElementsByClassName("meter-fill").item("style").setAttribute("width") = parseInt(100*returnRate)
+                meterFill.style.width =  parseInt(returnRate+40) +"%";
+                returnMessage = "For a needed annual return rate of around " + parseInt(returnRate) + " %" + ", consider looking into stock options for stable and not too volatile companies. Although these might give you high returns, they are extremely risky. Definetly research further if options are something you're interested in!";
+            }
+            if (returnRate >= 25 && returnRate <= 40) {
+                if (meterFill.classList.length==1){
+                    meterFill.classList.add('red');
+                }else{
+                    const classList = meterFill.classList;
+                    const currentClass = classList[classList.length - 1]; // Get the last class value
+
+                    // Replace the last class value with a new string
+                    classList.replace(currentClass, 'red');
+                }
+                //document.getElementsByClassName("meter-fill").item("style").setAttribute("width") = parseInt(100*returnRate)
+                meterFill.style.width =  parseInt(returnRate+55) +"%";
+                returnMessage = "For a needed annual return rate of around " + parseInt(returnRate) + " %" + ", consider looking into stock options for high volatilty stocks. I don't recommend ever shooting for a goal this high, but if you do, tred carefully!";
+            }
+            if (returnRate >= 40) {
+                if (meterFill.classList.length==1){
+                    meterFill.classList.add('red');
+                }else{
+                    const classList = meterFill.classList;
+                    const currentClass = classList[classList.length - 1]; // Get the last class value
+
+                    // Replace the last class value with a new string
+                    classList.replace(currentClass, 'red');
+                }
+                //document.getElementsByClassName("meter-fill").item("style").setAttribute("width") = parseInt(100*returnRate)
+                meterFill.style.width =  parseInt(100) +"%";
+                returnMessage = "For a needed annual return rate of around " + parseInt(returnRate) + " %" + ", consider changing your investment goals. I hate to break it to you, but this plan simply won't work for the average investor";
+            }
+            
+            
+
+            document.getElementById("returnRate").innerHTML = "You will need an annual growth rate of " + "<span style='color: green;'>" + returnRateText + "</span>" + " to reach your goal of " + "<span style='color: green;'>" + targetAmount + "$.</span>" +
+            "<br> At the end of " + years + " years, assuming the annual growth rate stays consistent, your investment will grow by " + "<span style='color: green;'>" + ret[1] + " dollars! </span>" + "<br>" + returnMessage;
+        }
+
+        generateChart(startAmount, returnRate, years, additionalContribution, contributionFrequency, contributionTiming);
+}
+
+
+        function calculateReturnRate(targetAmount, startAmount, years, additionalContribution, contributionFrequency, contributionTiming) {
+            var guess = 0.1; // Initial guess for return rate
+            var maxIterations = 1000000;
+            var tolerance = 0.00001;
+            var lowerBound = 0.0;
+            var upperBound = 100.0;
+
+            for (var i = 0; i < maxIterations; i++) {
+                var endBalance = calculateEndBalance(startAmount, guess, years, additionalContribution, contributionFrequency, contributionTiming);
+                var difference = targetAmount - endBalance[0];
+               // console.log(targetAmount+ " :  " + endBalance);
+
+                if (Math.abs(difference) <= tolerance) {
+                   // console.log(endBalance[1], guess * 100);
+                    return [guess * 100, Number.parseInt(endBalance[1])] ;
+                }
+
+                if (difference > 0) {
+                    lowerBound = guess;
+                    guess = (guess + upperBound) / 2;
+                } else {
+                    upperBound = guess;
+                    guess = (guess + lowerBound) / 2;
+                }
+            }
+
+            return [NaN, 0]; // Unable to find a solution within the maximum number of iterations
+        }
+
+
+        function calculateEndBalance(startAmount, returnRate, years, additionalContribution, contributionFrequency, contributionTiming) {
+            var totalContributions = getPeriodsPerYear(contributionFrequency) * years * additionalContribution;
+            var totalPeriods = years * getPeriodsPerYear(contributionFrequency);
+            var ratePerPeriod = returnRate / getPeriodsPerYear(contributionFrequency);
+
+            var principalData = [startAmount];
+            var interestData = [0];
+            var balanceData = [startAmount];
+            var missData =0;
+            var principal = startAmount;
+            var interest = 0;
+            var balance = startAmount;
+            var i;
+            for (i = 1; i <= totalPeriods; i++) {
+                //if (i % getPeriodsPerYear(contributionFrequency) === 1) {
+                //    principal += additionalContribution;
+                   // balance += additionalContribution;
+                //}
+                principal += additionalContribution;
+                balance += additionalContribution;
+                interest = balance * ratePerPeriod;
+                balance += interest;
+
+                principalData.push(principal);
+                interestData.push(interest);
+              //  if (i % getPeriodsPerYear(contributionFrequency) === 1) {
+                balanceData.push(balance);
+               // }
+                missData = balance-principal;
+            }
+            //console.log("funciton in calculateEndBalance: "+balance);
+            return [balance, missData];
+        }
+
+        function showTooltip(elementId) {
+            var tooltip = document.getElementById(elementId + 'Tooltip');
+            tooltip.style.display = 'inline';
+        }
+
+
+        function hideTooltip(elementId) {
+            var tooltip = document.getElementById(elementId + 'Tooltip');
+            tooltip.style.display = 'none';
+        }
+        function getPeriodsPerYear(contributionFrequency) {
+            switch (contributionFrequency) {
+                case "yearly":
+                    return 1;
+                case "semiannually":
+                    return 2;
+                case "quarterly":
+                    return 4;
+                case "monthly":
+                    return 12;
+                default:
+                    return 1;
+            }
+        }
+
+        function generateChart(startAmount, returnRate, years, additionalContribution, contributionFrequency, contributionTiming) {
+            var totalPeriods = years * getPeriodsPerYear(contributionFrequency);
+            var periodLabels = [];
+
+            for (var i = 0; i <= years; i++) {
+                periodLabels.push(i.toString());
+            }
+
+            var principalData = [];
+            var interestData = [];
+            var balanceData = [];
+
+            var principal = startAmount;
+            var interest = 0;
+            var balance = startAmount;
+
+            /*
+            for (var i = 1; i <= totalPeriods; i++) {
+                if (contributionTiming === "beginning" && i % getPeriodsPerYear(contributionFrequency) === 1) {
+                    principal += additionalContribution;
+                }
+
+                balance += additionalContribution;
+                interest = balance * (returnRate / 100 / getPeriodsPerYear(contributionFrequency));
+                balance += interest;
+
+                if (contributionTiming === "end" && i % getPeriodsPerYear(contributionFrequency) === 0) {
+                    principal += additionalContribution;
+                    balance += additionalContribution;
+                }
+
+                principalData.push(principal);
+                interestData.push(interest);
+                balanceData.push(balance);
+                console.log(balanceData);
+            }
+            */
+           var ratePerPeriod = returnRate / 100/ getPeriodsPerYear(contributionFrequency);
+            
+            for (var i = 0; i <= totalPeriods-1; i++) {
+                //if (i % getPeriodsPerYear(contributionFrequency) === 1) {
+                //    principal += additionalContribution;
+                   // balance += additionalContribution;
+                //}
+                principal += additionalContribution;
+                balance += additionalContribution;
+                interest = balance * ratePerPeriod;
+                balance += interest;
+                //console.log("funciton in chart: "+balance);
+
+                principalData.push(principal);
+                interestData.push(interest);
+                if ((i+1) % getPeriodsPerYear(contributionFrequency) === 0) {
+                    balanceData.push(balance);
+                }
+            }
+
+            if (chart) {
+                chart.destroy();
+            }
+            
+            //console.log(balancedData) 
+            
+            var ctx = document.getElementById("chart").getContext("2d");
+            chart = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: periodLabels,
+                    datasets: [
+                        {
+                            label: "Principal",
+                            data: principalData,
+                            borderColor: "blue",
+                            fill: false
+                        },
+                    
+                        {
+                            label: "Balance",
+                            data: balanceData,
+                            borderColor: "red",
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: "Years"
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: "Amount"
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        //javascript for dropdown menu
+        function showText(input) {
+            if (input==1){
+                var dropdownContent = document.getElementById("dropdownContent1"); //selecting line 274 by the id
+                dropdownContent.textContent = "A target amount for an investment is the specific sum of money you aim to reach over a certain period of time. It is important because having a target amount helps you stay focused on your financial goals and gives you a clear objective to work towards. By setting a target amount, you can track your progress, make informed investment decisions, and stay motivated on your financial journey.";
+            }
+            else if (input==2){
+                var dropdownContent = document.getElementById("dropdownContent2"); //selecting line 274 by the id
+                dropdownContent.textContent = "An initial financial investment is the money you put into something at the beginning to help it grow and succeed. It's like planting a seed that has the potential to yield fruitful returns in the future. The more you invest in, the more it will grow. Try starting with some extra money you have in your piggy bank. Many years down the line, that money will turn into something worthwhile!";
+            }
+            else if (input==3) {
+                var dropdownContent = document.getElementById("dropdownContent3"); //selecting line 274 by the id
+                dropdownContent.textContent = "How long are you looking to grow your money for. It really depends on what you want. Do you want to invest for college tuitions or maybe even for retirment. Remember the longer you invest , your investment will grow exponentially ";
+            }
+            else if (input==4) {
+                var dropdownContent = document.getElementById("dropdownContent4"); //selecting line 274 by the id
+                dropdownContent.textContent = "How much do you want to continue putting money into your investment. For example, if you get a 100$ per month allowance, you can add 100 dollars to your already growing investment!";
+            }
+            else if (input==5) {
+                var dropdownContent = document.getElementById("dropdownContent5"); //selecting line 274 by the id
+                dropdownContent.textContent = "This is how often you want to add your recurring contributions. In the example above, you would be adding money every month. There are many different options on how often you want to add money in. It's really up to you. ";
+            }
+            else if (input==6) {
+                var dropdownContent = document.getElementById("dropdownContent6"); //selecting line 274 by the id
+                dropdownContent.textContent = "Are you adding your payments at the start or end of every time period.";
+            }
+        }
+
+</script>
+</head>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<main class="mt-16 mx-auto max-w-4xl px-4 sm:mt-24"">
+    <div class="text-center">
+      <h1 class="text-5xl tracking-tight font-bold text-gray-900 sm:text-5xl md:text-6xl">
+        <span class="block xl:inline">Start Your Financial Journey Here!</span>
+      </h1>
+      <p
+        class="mt-3 max-w-2xl pl-10 text-left mx-auto text-base text-black-500 sm:text-lg md:mt-5 md:text-xl md:max-w-2xl">
+        <span class="font-semibold mx-auto"></span>Piggy Banking is an application designed to empower young learners in making informed financial investing decisions. Through interactive modules and personalized guidance, it equips users with essential knowledge and skills, ensuring a strong foundation for their future financial success.</i>
+        </span> <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+        href="about" style="color: green;">Learn more about us! &#x2192</a>
+      </p>
+      
+      <a href="#survey" class="sm:max-w-sm bg-black w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white md:py-4 md:text-lg md:px-10" 
+   onmouseover="this.style.backgroundColor = 'green';" 
+   onmouseout="this.style.backgroundColor = 'black';"
+   onfocus="this.style.backgroundColor = 'green';" 
+   onblur="this.style.backgroundColor = 'black';"
+>
+    Start Planning Now!
+</a>
+      
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+      <div class="bg-gray-100">
+        <main class="mt-64 pt-10 mx-auto max-w-3xl px-4 sm:mt-48">
+          <div class="text-left">
+            <h1 class="text-5xl tracking-tight font-bold text-gray-900 sm:text-5xl md:text-6xl">
+              <span id="survey" class="text-left block xl:inline">Investment Calculator</span>
+            </h1>
+            <p class="mt-1 max-w-3xl text-left mx-auto text-base text-gray-700 sm:text-lg md:mt-2 md:text-xl md:max-w-3xl">
+                <span class="mx-auto">The Investment Calculator is designed to help users set goals and plan to achieve their financial success. Sit down with your parents and talk about your situation. All you have to do is fill out the amounts and we'll do all the calculating for you. 
+                <br><br> If you're not familiar with investing yet, then check out our 'Investing Simplified' lesson!
+                <br>
+                <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                href="overview" style="color: green;">Learn about the basics here &#x2192</a>
+            </p>
+        </main>
+        
+    <div style="margin: 0 auto; width: 800px; text-align: left;">
+        <h2>Return Rate Calculator</h2>
+        <form>
+            <table cellpadding="5" cellspacing="0" border="1">
+                <tr>
+                    <td class="graybg1">Target Amount: 
+                        <div class="dropdown">
+                            <button onmouseover="showText(1)">?</button>
+                            <div id="dropdownContent1" class="dropdown-content"></div>
+                        </div>
+                        <td align="left">
+                            <input type="text" id="targetAmount" value="1000000" name="targetAmount" size="15" />
+                        </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="graybg1">Start Amount:
+                        <div class="dropdown">
+                            <button onmouseover="showText(2)">?</button>
+                            <div id="dropdownContent2" class="dropdown-content"></div>
+                        </div>
+                    </td>
+                    <td align="left">
+                        <input type="text" id="startAmount" value="100000" name="startAmount" size="15" />
+                    </td>
+                    
+                <tr>
+                    <td class="graybg1">Number of Years:
+                    <div class="dropdown">
+                        <button onmouseover="showText(3)">?</button>
+                        <div id="dropdownContent3" class="dropdown-content"></div>
+                    </div>
+                    </td>
+                    <td align="left">
+                        <input type="text" id="years" value="50" name="years" size="15" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="graybg1">Additional Contribution:
+                    <div class="dropdown">
+                        <button onmouseover="showText(4)">?</button>
+                        <div id="dropdownContent4" class="dropdown-content"></div>
+                    </div>
+                    </td>
+                    <td align="left">
+                        <input type="text" id="additionalContribution"  value="50" name="additionalContribution" size="15" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="graybg1">Contribution Frequency:
+                    <div class="dropdown">
+                        <button onmouseover="showText(5)">?</button>
+                        <div id="dropdownContent5" class="dropdown-content"></div>
+                    </div>
+                    </td>
+                    <td align="left">
+                        <select id="contributionFrequency" name="contributionFrequency">
+                            <option value="yearly">Yearly</option>
+                            <option value="semiannually">Semiannually</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="graybg1">Contribution Timing:
+                    <div class="dropdown">
+                        <button onmouseover="showText(6)">?</button>
+                        <div id="dropdownContent6" class="dropdown-content"></div>
+                    </div>
+                    </td>
+                    <td align="left">
+                        <select id="contributionTiming" name="contributionTiming">
+                            <option value="beginning">Beginning</option>
+                            <option value="end">End</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="button" value="Calculate Return Rate" onclick="calculate()" />
+                    </td>
+                </tr>
+            </table>
+            <script>        
+            function proComma(pcid){
+                document.getElementById(pcid).onblur=function(){insertComma(pcid, 'd');};
+                insertComma(pcid, 'd');
+            }
+            function refreshEvery(ms) {return new Promise(resolve => setTimeout(resolve, ms));}async function runWhenLoaded(refcheck){while(typeof insertComma !== "function") {await refreshEvery(200);}refcheck();}
+            runWhenLoaded(function() {
+                proComma("targetAmount");
+                proComma("startAmount");
+                proComma("additionalContribution");
+            });
+
+          
+
+            </script>
+        </form>
+
+        <h3>Return Rate:</h3>
+        <div id="returnRate"></div>
+
+        <h3>Risk Factor Calculator:</h3>
+        
+        <div class="chrismeter"><div class="meter-fill" style="width:0%;"></div></div>
+
+        <h3>Balance Accumulation Graph:</h3>
+        <canvas id="chart"></canvas>
+    </div>
+    <!--script src="./script.js"></script -->
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+{% include "head.html" %}
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+<body>
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        <!-- Desktop sidebar -->
+
+        {% include "navbar.html" %}
+
+        <!-- Mobile sidebar -->
+        <!-- Backdrop -->
+        {% include "mobilenav.html" %}
+
+        <div class="py-2">
+
+            <center>
+                <h1 style="font-size: 48px;">What's Investing?</h1>
+            </center>
+
+        <p>Investing is like planting seeds with the hope that they will grow into bigger plants in the future. Instead of planting seeds in the ground, you put your money into different things with the expectation that it will grow over time and give you more money later on.
+
+<br> <br>For example, when you buy shares of a company's stock, it's like buying a tiny piece of that company. As the company does well and makes more money, the value of your shares can increase, and you may even get some money back in the form of dividends.
+
+<br> <br>Another way to invest is by buying bonds, which are like loans to the government or companies. They pay you back the money you lent them plus some extra as interest.
+
+<br> <br>You can also invest in things like real estate, which means buying properties like houses or apartments. If the value of those properties goes up over time, you can sell them for a higher price and make a profit.
+
+<br> <br>Investing is not a quick way to get rich, though. It's a long-term strategy where you need to be patient and give your investments time to grow. It's also important to spread your investments across different types of things, like stocks, bonds, and real estate, so that if one doesn't do well, the others can help balance it out.
+
+<br> <br>Remember, investing also comes with risks. The value of your investments can go up and down, and you might not always make money. That's why it's important to do research, learn about different investments, and seek advice from grown-ups or experts before making any decisions.
+
+<br> <br>Overall, investing is about using your money wisely and making choices that have the potential to grow your wealth over time. Just like planting seeds and taking care of them, investing requires patience, knowledge, and making smart decisions to help your money grow.
+        </p>
+
+        <div style="display: flex; align-items: center; justify-content: center; margin: 20px;">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/SbhjTvb9NYU" frameborder="0" allowfullscreen style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);"></iframe>
+        </div>
+        
+
+      
+        <a href="./overview" style="position: fixed; bottom: 10px; left: 270px; color: rgb(0, 133, 69);">Back to Lesson Overview &#8592;</a>
+<a href="./lesson2.html" style="position: fixed; bottom: 10px; right: 10px; color: rgb(0, 133, 69);">Next Lesson &#8594;</a>
+
+            </div>
+        </div>
+
+        

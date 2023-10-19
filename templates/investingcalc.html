@@ -1,0 +1,45 @@
+<table width="100%" class="panel2" cellspacing="0" cellpadding="0" border="0"><tbody><tr><td valign="top" width="45%">
+    <form name="calform" action="/investment-calculator.html#calresult"><input type="hidden" name="ctype" id="ctype" value="returnrate">
+    <table id="cendamount" width="310" style="display: block;">
+    <tbody><tr><td width="180">Your Target</td><td width="130"><input type="text" name="ctargetamountv" id="ctargetamountv" value="1000000" class="inlong indollar"></td></tr>
+    </tbody></table>
+    <table id="cstartingamount" width="310" style="display: block;">
+    <tbody><tr><td width="180">Starting Amount</td><td width="130"><input type="text" name="cstartingprinciplev" id="cstartingprinciplev" value="20000" class="inlong indollar"></td></tr>
+    </tbody></table>
+    <table id="cinvestlength" width="310" style="display: block;">
+    <tbody><tr><td width="180">After</td><td width="130"><input type="text" name="cyearsv" id="cyearsv" value="10" class="inlong inuiyear"><span class="inuiyearspan">years</span></td></tr>
+    </tbody></table>
+    <table id="creturnrate" width="310" style="display: none;">
+    <tbody><tr><td width="180">Return Rate</td><td width="130"><input type="text" name="cinterestratev" id="cinterestratev" value="6" class="inlong inpct"></td></tr>
+    <tr><td>Compound</td><td>
+        <select id="ccompound" name="ccompound" class="inlong" style="text-align:left;">
+            <option value="annually" selected="">annually</option>
+            <option value="semiannually">semiannually</option>
+            <option value="quarterly">quarterly</option>
+            <option value="monthly">monthly</option>
+            <option value="semimonthly">semimonthly</option>
+            <option value="biweekly">biweekly</option>
+            <option value="weekly">weekly</option>
+            <option value="daily">daily</option>
+            <option value="continuously">continuously</option>
+        </select>
+    </td></tr>
+    </tbody></table>
+    <table id="ccontributeamount" width="310" style="display: block;">
+    <tbody><tr><td width="180">Additional Contribution</td><td width="130"><input type="text" name="ccontributeamountv" id="ccontributeamountv" value="1000" class="inlong indollar"></td></tr>
+    </tbody></table>
+    <table id="cperiod" width="300">
+    <tbody><tr><td align="right">Contribute at the
+        <label for="cadditionat1" class="cbcontainer"><input name="cadditionat1" id="cadditionat1" value="beginning" type="radio"><span class="rbmark"></span>beginning</label> &nbsp;
+        <label for="cadditionat2" class="cbcontainer"><input name="cadditionat1" id="cadditionat2" value="end" type="radio" checked=""><span class="rbmark"></span>end</label>
+        <br>of each
+        <label for="ciadditionat1" class="cbcontainer"><input name="ciadditionat1" id="ciadditionat1" value="monthly" type="radio" checked=""><span class="rbmark"></span>month</label> &nbsp;
+        <label for="ciadditionat2" class="cbcontainer"><input name="ciadditionat1" id="ciadditionat2" value="annually" type="radio"><span class="rbmark"></span>year</label>
+    </td></tr>
+    <tr><td align="center">
+        <input name="printit" value="0" type="hidden">
+        <input type="submit" name="x" value="Calculate">
+    </td></tr>
+    </tbody></table>
+    </form>
+</td><td width="5%">&nbsp;</td><td valign="top" width="50%"><h2 class="h2result">Results</h2><p>You will need an annual return rate of <font color="green"><b>32.594%</b></font> to reach the target of $1,000,000.00.</p><table cellpadding="3" width="100%"><tbody><tr bgcolor="#eeeeee"><td><b>End Balance</b></td><td align="right"><b>$1,000,000.00</b></td></tr><tr><td>Starting Amount</td><td align="right">$20,000.00</td></tr><tr><td>Total Contributions</td><td align="right">$120,000.00</td></tr><tr><td>Total Interest</td><td align="right">$860,000.00</td></tr></tbody></table></td></tr></tbody></table>

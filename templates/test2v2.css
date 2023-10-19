@@ -1,0 +1,126 @@
+/* CSS for text */
+
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  h2, h3 {
+    color: #333;
+  }
+  
+  h2 {
+    font-size: 28px;
+  }
+  
+  h3 {
+    font-size: 22px;
+  }
+  
+  table {
+    border-collapse: collapse;
+  }
+  
+  td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .graybg1 {
+    background-color: #eee;
+  }
+  
+  .graybg1, input[type="text"], select {
+    font-size: 16px;
+  }
+  
+  input[type="button"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    width: 250px;
+    z-index: 1;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown-content::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    border-width: 0 6px 6px 6px;
+    border-style: solid;
+    border-color: transparent transparent #f9f9f9 transparent;
+  }
+  
+  .dropdown-content::after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 11px;
+    border-width: 0 5px 5px 5px;
+    border-style: solid;
+    border-color: transparent transparent #ddd transparent;
+  }
+  
+  .font11 {
+    font-size: 11px;
+    color: #555;
+  }
+  
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  /* CSS for chart */
+  
+  #chart {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: block;
+  }
+  

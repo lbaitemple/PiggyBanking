@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Investment Calculator</title>
+    <script type="text/javascript">
+        function proComma(id) {
+            // Function to format the input values (assuming it's defined elsewhere)
+            // ...
+        }
+
+        function calculate() {
+            // Retrieve input values
+            var targetAmount = parseFloat(document.getElementById("ctargetamountv").value);
+            var startingPrincipal = parseFloat(document.getElementById("cstartingprinciplev").value);
+            var years = parseInt(document.getElementById("cyearsv").value);
+            var interestRate = parseFloat(document.getElementById("cinterestratev").value);
+            var compound = document.getElementById("ccompound").value;
+            var contributeAmount = parseFloat(document.getElementById("ccontributeamountv").value);
+            var additionAt = document.querySelector('input[name="cadditionat1"]:checked').value;
+
+            // Calculate the ending balance
+            var endingBalance = startingPrincipal;
+            var totalContributions = 0;
+            var totalInterest = 0;
+
+            for (var i = 1; i <= years; i++) {
+                var annualInterest = endingBalance * (interestRate / 100);
+                totalInterest += annualInterest;
+
+                if (additionAt === "beginning") {
+                    endingBalance += annualInterest;
+                }
+
+                endingBalance += contributeAmount;
+                totalContributions += contributeAmount;
+
+                if (additionAt === "end") {
+                    endingBalance += annualInterest;
+                }
+
+                if (compound === "annually") {
+                    endingBalance *= 1 + (interestRate / 100);
+                } else if (compound === "semiannually") {
+                    endingBalance *= 1 + (interestRate / 200);
+                } else if (compound === "quarterly") {
+                    endingBalance *= 1 + (interestRate / 400);
+                } else if (compound === "monthly") {
+                    endingBalance *= 1 + (interestRate / 1200);
+                } else if (compound === "semimonthly") {
+                    endingBalance *= 1 + (interestRate / 2400);
+                } else if (compound === "biweekly") {
+                    endingBalance *= 1 + (interestRate / 2600);
+                } else if (compound === "weekly") {
+                    endingBalance *= 1 + (interestRate / 5200);
+                } else if (compound === "daily") {
+                    endingBalance *= 1 + (interestRate / 36500);
+                } else if (compound === "continuously") {
+                    endingBalance *= Math.exp(interestRate / 100);
+                }
+            }
+
+            // Update the result section with the calculated values
+            document.getElementById("endBalance").textContent = "$" + endingBalance.toFixed(2);
+            document.getElementById("targetAmount").textContent = "$" + targetAmount.toFixed(2);
+            document.getElementById("annualReturnRate").textContent = interestRate.toFixed(2) + "%";
+            document.getElementById("totalContributions").textContent = "$" + totalContributions.toFixed(2);
+            document.getElementById("totalInterest").textContent = "$" + totalInterest.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <div align="center">
+        <div style="width: 600px; text-align: left;">
+            <form>
+                <input type="hidden" id="ctype" name="ctype" value="1">
+                <input type="hidden" id="insubmitted" name="insubmitted" value="1">
+                <input type="hidden" id="calccompound" name="calccompound" value="">
+                <input type="hidden" id="cyearsv" name="cyearsv" value="1">
+                <input type="hidden" id="proadditionat" name="proadditionat" value="end">
+                <input type="hidden" id="additionatbeginning" name="additionatbeginning" value="beginning">
+                <input type="hidden" id="additionatend" name="additionatend" value="end">
+
+                <table class="font11" width="100%" cellspacing="0" cellpadding="2" border="0">
+                    <tr>
+                        <td class="graybg1" width="45%">Target Amount:</td>
+                        <td align="left" width="55%">
+                            <input type="text" id="ctargetamountv" name="ctargetamountv" value="0.00" size="10" maxlength="10" onKeyUp="proComma('ctargetamountv')" onChange="calculate()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="graybg1">Starting Principal:</td>
+                        <td align="left">
+                            <input type="text" id="cstartingprinciplev" name="cstartingprinciplev" value="0.00" size="10" maxlength="10" onKeyUp="proComma('cstartingprinciplev')" onChange="calculate()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="graybg1">Years to Grow:</td>
+                        <td align="left">
+                            <input type="text" id="cyearsv" name="cyearsv" value="1" size="3" maxlength="3" onKeyUp="proComma('cyearsv')" onChange="calculate()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="graybg1">Annual Return Rate:</td>
+                        <td align="left">
+                            <input type="text" id="cinterestratev" name="cinterestratev" value="0.00" size="5" maxlength="5" onKeyUp="proComma('cinterestratev')" onChange="calculate()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="graybg1">Compound:</td>
+                        <td align="left">
+                            <select id="ccompound" name="ccompound" onChange="calculate()">
+                                <option value="annually">Annually</option>
+                                <option value="semiannually">Semiannually</option>
+                                <option value="quarterly">Quarterly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="semimonthly">Semimonthly</option>
+                                <option value="biweekly">Biweekly</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="daily">Daily</option>
+                                <option value="continuously">Continuously</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="graybg1">Contribute Amount:</td>
+                        <td align="left">
+                            <input type="text" id="ccontributeamountv" name="ccontributeamountv" value="0.00" size="10" maxlength="10" onKeyUp="proComma('ccontributeamountv')" onChange="calculate()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="graybg1">Addition at:</td>
+                        <td align="left">
+                            <input type="radio" id="cadditionat1" name="cadditionat1" value="beginning" checked onChange="calculate()">Beginning
+                            <input type="radio" id="cadditionat2" name="cadditionat1" value="end" onChange="calculate()">End
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <br>
+            <div id="results">
+                <table class="font11" width="100%" cellspacing="0" cellpadding="2" border="0">
+                    <tr>
+                        <td class="graybg1" width="45%">End Balance:</td>
+                        <td align="left" id="endBalance">$0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="graybg1">Target Amount:</td>
+                        <td align="left" id="targetAmount">$0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="graybg1">Annual Return Rate:</td>
+                        <td align="left" id="annualReturnRate">0.00%</td>
+                    </tr>
+                    <tr>
+                        <td class="graybg1">Total Contributions:</td>
+                        <td align="left" id="totalContributions">$0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="graybg1">Total Interest:</td>
+                        <td align="left" id="totalInterest">$0.00</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

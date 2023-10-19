@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+{% include "head.html" %}
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<body>
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        <!-- Desktop sidebar -->
+
+        {% include "navbar.html" %}
+
+        <!-- Mobile sidebar -->
+        <!-- Backdrop -->
+        {% include "mobilenav.html" %}
+
+
+
+        <div class="py-2">
+
+            <center>
+                <h1 style="font-size: 48px;">When do I Start?</h1>
+            </center>
+
+            <p class="text-md text-gray-600 dark:text-gray-400 ml-8">
+                <b>To put it simply, it does not matter.</b> In fact, the earlier you start, the better. If you're under the age of 18, consider talking with your parents or guardians who can help you open a savings account or even a broker account. Here are some of the benefits at starting from a young age.
+            </p>
+
+            <br>
+            <br>
+                    <p class="text-md text-gray-600 dark:text-gray-400 ml-8">
+                        <b>1. Supercharging Your Money:</b> When you invest early, your money has more time to grow. It's like planting a small seed that grows into a big tree over time. The longer your money stays invested, the more it can grow and potentially make you even more money.
+
+<br> <b>2. Making Money Work for You:</b> When you invest, you're letting your money work for you instead of just keeping it in a piggy bank or spending it right away. By investing, you give your money the chance to grow on its own and create more money for you in the future.
+
+<br> <b>3. Learning About Money:</b> Investing early helps you learn important lessons about money. You get to understand how money can grow over time and how to make smart decisions with your money. It teaches you about saving, setting goals, and making choices that can help you become financially successful.
+
+<br> <b>4. Building Wealth for the Future:</b> Investing at a young age is like building a strong foundation for your financial future. By starting early, you have more time to save and invest, which can help you build wealth over the years. It can give you more options and opportunities later in life.
+
+<br> <b>5. Taking Advantage of Risks (Smartly):</b> Investing involves taking some risks, but when you start early, you have more time to recover from any losses. It allows you to take risks wisely and invest in things that have the potential to grow over time. Remember, though, that you should always be careful and do your research before making any investment decisions.
+
+<br> <b>6. Discovering Exciting Opportunities:</b> Investing early gives you a chance to learn about different types of investments and explore new opportunities. You can learn about stocks (which represent a small piece of a company), bonds (which are like loans to governments or companies), and other things you can invest in. It's like unlocking a door to a world of exciting possibilities.
+
+<br> <b>7. Being in Control of Your Future:</b> By investing early, you can take control of your financial future. It can give you more freedom and choices when you grow up. You'll have the power to achieve your goals, whether it's buying a house, starting a business, or having a comfortable retirement.
+
+<br><b>Remember</b>, investing comes with risks, and it's important to be patient, do your research, and seek advice from adults or professionals before making any investment decisions. Starting early is a great way to get ahead and build a solid financial foundation for your future.
+                    </p>
+                    
+                    <div style="display: flex; align-items: center; justify-content: center; margin: 20px;">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/9r97ogOP0cs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+
+
+        </div>
+
+<a href="./lesson1.html" style="position: fixed; bottom: 10px; left: 270px; color: rgb(0, 133, 69);">Previous Lesson &#8592;</a>
+<a href="./lesson3.html" style="position: fixed; bottom: 10px; right: 10px; color: rgb(0, 133, 69);">Next Lesson &#8594;</a>
