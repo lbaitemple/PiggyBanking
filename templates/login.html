@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+
+{% include "head.html" %}
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<body>
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        <!-- Desktop sidebar -->
+        {% include "navbar.html" %}
+
+        <!-- Mobile sidebar -->
+        <!-- Backdrop -->
+        {% include "mobilenav.html" %}
+
+        <main class="h-full overflow-y-auto">
+            <div class="container px-6 mx-auto grid">
+                {% if current_user.is_authenticated %}
+                    <span id="user-info">Welcome, {{ current_user.username }}!</span>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                    {% block content %}
+                        {% if session['logged_in'] %}
+                            <p>You're logged in already!</p>
+                        {% else %}
+                            <h2>Login</h2>
+                            <form action="/login" method="POST">
+                                <input type="text" name="username" placeholder="Username">
+                                <input type="password" name="password" placeholder="Password">
+                                <input type="submit" value="Log in">
+                            </form>
+                        {% endif %}
+                    {% endblock %}
+                {% endif %}
+
+                {% include "footer.html" %}
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

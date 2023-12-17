@@ -21,16 +21,8 @@
             <main class="h-full overflow-y-auto">
                 <div class="container px-6 mx-auto grid">
                     <div class="max-w-2xl mx-auto">
-                        <h2 class="mt-6 mb-2 text-2xl font-semibold text-gray-700 text-center dark:text-gray-200 ml-8">
-                            {{official}}
-                        </h2>
                     </div>
 
-                    {% if data[official]["estimated_return"] == 0 %}
-
-                    {% include "noreturnsalert.html" %}
-
-                    {% endif %}
 
 
                     <!-- Cards -->
@@ -47,9 +39,6 @@
                                     Estimated Return, to date
                                 </p>
                                 <p id="estimated_return" class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                                    {% with estimated_return = data[official]["estimated_return"] %}
-                                    {{estimated_return}}
-                                    {% endwith %}
                                 </p>
                             </div>
                         </div>
@@ -62,15 +51,6 @@
                                         d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                            </div>
-                            <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                                    Portfolio Value (Est.)
-                                </p>
-                                <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                                    {% with portfolio_value = data[official]["portfolio_value"] %}
-                                    ${{portfolio_value}}
-                                    {% endwith %} </p>
                             </div>
                         </div>
                         <!-- Card -->
@@ -88,9 +68,7 @@
                                     Sales
                                 </p>
                                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                                    {% with sales = data[official]["sales"] %}
-                                    {{sales}}
-                                    {% endwith %}
+
                                 </p>
                             </div>
                         </div>
@@ -109,9 +87,7 @@
                                     Purchases
                                 </p>
                                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                                    {% with purchases = data[official]["purchases"] %}
-                                    {{purchases}}
-                                    {% endwith %}
+
                                 </p>
                             </div>
                         </div>

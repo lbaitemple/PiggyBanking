@@ -1,0 +1,6 @@
+<h2>Login History for {{ user.username }}</h2>
+<ul>
+    {% for entry in login_history %}
+        <li>{{ entry.timestamp }}</li>
+    {% endfor %}
+</ul>

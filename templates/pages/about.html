@@ -16,13 +16,19 @@
         <!-- Backdrop -->
         {% include "mobilenav.html" %}
 
+
+
             <main class="h-full overflow-y-auto">
                 <div class="container px-6 mx-auto grid">
-
+                            {% if current_user.is_authenticated %}
+        <span id="user-info">Welcome, {{ current_user.username }}!</span>
+        <a href="{{ url_for('logout') }}">Logout</a>
                     <h2 style="font-size: 2.6rem;"
                         class="mt-6 font-bold text-gray-700 text-left dark:text-gray-200 ml-8">
                         About
                     </h2>
+
+
                     <div class="py-2">
                         <p class="text-md text-gray-600 dark:text-gray-400 ml-8 dark:text-gray-200">
                         <b>Piggy Bank aims to provide financial education to the youth through interactive models and lessons. </b>
@@ -50,7 +56,10 @@
                         This website was built with HTML, CSS/Bootstrap, Javascript, and Python. This website was made and run by Christopher Bai. 
                     </p>
                 </div>
-
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+    
                 {% include "footer.html" %}
                 </div>
 
@@ -60,3 +69,4 @@
 </body>
 
 </html>
+
