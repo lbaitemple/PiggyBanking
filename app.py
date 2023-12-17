@@ -11,10 +11,10 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
 # Initialize DynamoDB client
-#dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
 #table = dynamodb.Table('zany-pink-abalone-gearCyclicDB')
 
-dynamodb = boto3.resource('dynamodb')
+#dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('zany-pink-abalone-gearCyclicDB')
 
 
