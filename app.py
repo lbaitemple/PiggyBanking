@@ -121,4 +121,4 @@ if __name__ == '__main__':
         level=logging.DEBUG,  # Set the logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    app.run(host='0.0.0.0', debug=True)
