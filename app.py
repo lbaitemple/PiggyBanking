@@ -115,10 +115,4 @@ if __name__ == '__main__':
     app.app_context().push()
     db.create_all()
  
-    # Configure logging
-    logging.basicConfig(
-        filename='app.log',  # Specify the log file
-        level=logging.DEBUG,  # Set the logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-        format='%(asctime)s - %(levelname)s - %(message)s'
-    )
     app.run(host='0.0.0.0', debug=True)
