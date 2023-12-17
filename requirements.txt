@@ -8,7 +8,8 @@ tqdm==4.62.0
 Jinja2==3.0.1
 gunicorn==20.1.0
 Werkzeug==2.2.2
-Flask-Login
-Flask-SQLAlchemy==2.0.23
+flask-sqlalchemy 
+flask-login
 requests
+
 
