@@ -10,4 +10,4 @@ gunicorn==20.1.0
 Werkzeug==2.2.2
 Flask-SQLAlchemy
 requests
-flask_login
+Flask-Login
