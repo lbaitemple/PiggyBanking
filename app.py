@@ -11,10 +11,11 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
 # Initialize DynamoDB client
-dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
+#dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
+#table = dynamodb.Table('zany-pink-abalone-gearCyclicDB')
+
+dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('zany-pink-abalone-gearCyclicDB')
-
-
 
 
 
@@ -36,7 +37,7 @@ class User(UserMixin):
             print(f"Error retrieving user: {e}")
             return None
 
-        
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -81,13 +82,17 @@ def lesson3():
 def lesson4():
     return render_template("pages/lesson4.html") 
 
+def user_exists(username):
+    response = table.get_item(Key={'username': username})
+    return 'Item' in response
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         
-        user = User.query.filter_by(username=username).first()
+        user = user_exists(username)
         
         if user and user.password == password:
             login_user(user)
@@ -107,7 +112,7 @@ def register():
         password = request.form['password']
         
         # Check if the username is already taken
-        existing_user = User.query.filter_by(username=username).first()
+        existing_user = user_exists(username)
         if existing_user:
             return 'Username already taken'
         
